@@ -1,0 +1,7 @@
+C:\Users\lusin\source\repos\LogisticService\bin\Debug\LogisticService.exe.config
+C:\Users\lusin\source\repos\LogisticService\bin\Debug\LogisticService.exe
+C:\Users\lusin\source\repos\LogisticService\bin\Debug\LogisticService.pdb
+C:\Users\lusin\source\repos\LogisticService\obj\Debug\LogisticService.csproj.AssemblyReference.cache
+C:\Users\lusin\source\repos\LogisticService\obj\Debug\LogisticService.csproj.CoreCompileInputs.cache
+C:\Users\lusin\source\repos\LogisticService\obj\Debug\LogisticService.exe
+C:\Users\lusin\source\repos\LogisticService\obj\Debug\LogisticService.pdb
