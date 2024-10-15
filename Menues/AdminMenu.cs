@@ -29,7 +29,7 @@ namespace LogisticService.Menues
             Console.Write("Choose operation: ");
         }
 
-        public override void Start()
+        public override async Task Start()
         {
             while (true)
             {
@@ -52,19 +52,19 @@ namespace LogisticService.Menues
                 switch (choice)
                 {
                     case 1:
-                        ShowDirectionsAdminMenu(new DirectionRepository());
+                        await ShowDirectionsAdminMenu(new DirectionRepository());
                         break;
                     case 2:
-                        ShowCaTypesAdminMenu(new CarTypeRepository());
+                        await ShowCaTypesAdminMenu(new CarTypeRepository());
                         break;
                     case 3:
-                        ShowCarModelsAdminMenu(new CarModelRepository());
+                        await ShowCarModelsAdminMenu(new CarModelRepository());
                         break;
                     case 4:
-                        ShowContainersAdminMenu(new ContainerRepository());
+                        await ShowContainersAdminMenu(new ContainerRepository());
                         break;
                     case 5:
-                        ShowCrashedCarsAdminMenu(new CrashedCarRepository());
+                        await ShowCrashedCarsAdminMenu(new CrashedCarRepository());
                         break;
                     default:
                         Console.WriteLine("Invalid choice");
@@ -501,7 +501,7 @@ namespace LogisticService.Menues
                     case 1:
                         {
                             Console.WriteLine("Fill Container type IsOpen?");
-                          
+
                             bool isOpen;
                             while (true)
                             {
@@ -509,7 +509,7 @@ namespace LogisticService.Menues
                                 try
                                 {
                                     isOpen = Console.ReadLine().BooleanValidation();
-                                   break;
+                                    break;
                                 }
                                 catch (Exception ex)
                                 {
@@ -577,14 +577,14 @@ namespace LogisticService.Menues
                                     isOpen = Console.ReadLine().BooleanValidation();
                                     break;
                                 }
-                                catch(Exception ex)
+                                catch (Exception ex)
                                 {
                                     Console.WriteLine(ex.Message);
                                     continue;
                                 }
                             }
-                           
-                           
+
+
                             Console.Write("Coefficient: ");
                             float coefficient = float.Parse(Console.ReadLine());
 
@@ -668,15 +668,15 @@ namespace LogisticService.Menues
                                     isCrashed = Console.ReadLine().BooleanValidation();
                                     break;
                                 }
-                                catch(Exception ex)
+                                catch (Exception ex)
                                 {
                                     Console.WriteLine(ex.Message);
                                     continue;
                                 }
 
                             }
-                           
-                          
+
+
                             Console.Write("Coefficient: ");
                             float coefficient = float.Parse(Console.ReadLine());
                             CrashedCar crashedCar = new CrashedCar(isCrashed, coefficient);

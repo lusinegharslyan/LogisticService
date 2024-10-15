@@ -9,7 +9,7 @@ namespace LogisticService.Menues
 {
     public class UserMenu : Menu
     {
-        public override void Start()
+        public override async Task Start()
         {
             Console.WriteLine("Calculation Service start");
 
@@ -21,7 +21,7 @@ namespace LogisticService.Menues
 
             ICalculationService calculationServiceRepository = new CalculationServiceRepository();
 
-           var result =  calculationServiceRepository.LogisticServiceCalculation(new CalculationServices.Models.CalculationModel(direction, carType, carModel, container, crashed));
+            var result = await calculationServiceRepository.LogisticServiceCalculation(new CalculationServices.Models.CalculationModel(direction, carType, carModel, container, crashed));
 
             Console.WriteLine($"Logistic Calculation result is: {result}");
         }

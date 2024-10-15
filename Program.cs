@@ -12,7 +12,7 @@ namespace LogisticService
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static  void Main(string[] args)
         {
             Console.WriteLine("Welcome to Logistic Service");
 
@@ -50,7 +50,7 @@ namespace LogisticService
                         break;
                 }
 
-                menu.Start();
+                 menu.Start().Wait();
 
             }
         } 
