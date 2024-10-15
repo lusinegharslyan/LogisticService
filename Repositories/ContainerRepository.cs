@@ -1,4 +1,4 @@
-﻿using LogisticService.Classes;
+﻿using LogisticService.Models;
 using LogisticService.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace LogisticService.Repositories
     {
         public const string CONNECTCION_STRING = "Data Source=LUSINE1985\\MSSQLSERVER01;Initial Catalog=LogisticServiceDb;Integrated Security=True;Encrypt=False";
 
-        public void Add(Container container)
+        public async Task AddAsync(Container container)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -25,12 +25,12 @@ namespace LogisticService.Repositories
                     command.Parameters.Add(new SqlParameter("@IsOpen", container.IsOpen));
                     command.Parameters.Add(new SqlParameter("@Coefficient", container.Coefficient));
 
-                    command.ExecuteNonQuery();
+                   await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -40,12 +40,12 @@ namespace LogisticService.Repositories
                     command.Connection = connection;
                     command.CommandText = "Delete from Containers  where Id = @Id";
                     command.Parameters.Add(new SqlParameter("@Id", id));
-                    command.ExecuteNonQuery();
+                   await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public void Update(Container container, int id)
+        public async Task UpdateAsync(Container container, int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -58,14 +58,13 @@ namespace LogisticService.Repositories
                     command.Parameters.Add(new SqlParameter("@IsOpen", container.IsOpen));
                     command.Parameters.Add(new SqlParameter("@Coefficient", container.Coefficient));
 
-                    command.ExecuteNonQuery();
+                   await command.ExecuteNonQueryAsync();
 
                 }
-
             }
         }
 
-        public Container FindById(int id)
+        public async Task<Container> FindByIdAsync(int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -76,7 +75,7 @@ namespace LogisticService.Repositories
                     command.Connection = connection;
                     command.CommandText = "select * from Containers  where Id=@Id";
                     command.Parameters.Add(new SqlParameter("@Id", id));
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -90,7 +89,7 @@ namespace LogisticService.Repositories
                 return container;
             }
         }
-        public List<Container> GetAll()
+        public async Task<List<Container>> GetAllAsync()
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -100,7 +99,7 @@ namespace LogisticService.Repositories
                 {
                     command.Connection = connection;
                     command.CommandText = "select * from Containers ";
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader =await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -119,7 +118,7 @@ namespace LogisticService.Repositories
         }
 
 
-        public Container Find(Container isOpenContainer)
+        public async Task <Container> FindAsync(Container isOpenContainer)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -131,7 +130,7 @@ namespace LogisticService.Repositories
                     command.CommandText = "select * from Containers where IsOpen=@IsOpen";
                     command.Parameters.Add(new SqlParameter("@IsOpen", isOpenContainer.IsOpen));
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader =await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {

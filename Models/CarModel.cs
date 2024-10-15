@@ -4,28 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogisticService.Classes
+namespace LogisticService.Models
 {
-    public class CarType
+    public class CarModel
     {
-        public CarType()
+        public CarModel()
         {
 
         }
-        public CarType(string type, float coefficient)
+
+        public CarModel(string model, float coefficient)
         {
-            Type = type;
+            Model = model;
             Coefficient = coefficient;
         }
 
-        public CarType(string type)
+        public CarModel(string model)
         {
-            Type = type;
-          
+            Model = model;
+           
         }
 
         public int Id { get; set; }
-        public string Type { get; set; }
+        public string Model { get; set; }
         public float Coefficient { get; set; }
     }
 }

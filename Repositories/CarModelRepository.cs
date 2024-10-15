@@ -1,4 +1,4 @@
-﻿using LogisticService.Classes;
+﻿using LogisticService.Models;
 using LogisticService.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace LogisticService.Repositories
     {
         public const string CONNECTCION_STRING = "Data Source=LUSINE1985\\MSSQLSERVER01;Initial Catalog=LogisticServiceDb;Integrated Security=True;Encrypt=False";
 
-        public void Add(CarModel carModel)
+        public async Task AddAsync(CarModel carModel)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -25,12 +25,12 @@ namespace LogisticService.Repositories
                     command.Parameters.Add(new SqlParameter("@Model", carModel.Model));
                     command.Parameters.Add(new SqlParameter("@Coefficient", carModel.Coefficient));
 
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -40,12 +40,12 @@ namespace LogisticService.Repositories
                     command.Connection = connection;
                     command.CommandText = "Delete from CarModels where Id = @Id";
                     command.Parameters.Add(new SqlParameter("@Id", id));
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public void Update(CarModel carModel, int id)
+        public async Task UpdateAsync(CarModel carModel, int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -58,14 +58,13 @@ namespace LogisticService.Repositories
                     command.Parameters.Add(new SqlParameter("@Model", carModel.Model));
                     command.Parameters.Add(new SqlParameter("@Coefficient", carModel.Coefficient));
 
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
 
                 }
-
             }
         }
 
-        public CarModel FindById(int id)
+        public async Task<CarModel> FindByIdAsync(int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -76,7 +75,7 @@ namespace LogisticService.Repositories
                     command.Connection = connection;
                     command.CommandText = "select * from CarModels where Id=@Id";
                     command.Parameters.Add(new SqlParameter("@Id", id));
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -90,7 +89,7 @@ namespace LogisticService.Repositories
                 return carModel;
             }
         }
-        public List<CarModel> GetAll()
+        public async Task<List<CarModel>> GetAllAsync()
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -100,7 +99,7 @@ namespace LogisticService.Repositories
                 {
                     command.Connection = connection;
                     command.CommandText = "select * from CarModels";
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -108,7 +107,6 @@ namespace LogisticService.Repositories
                             carModel.Id = int.Parse(reader["Id"].ToString());
                             carModel.Model = reader["Model"].ToString();
                             carModel.Coefficient = float.Parse(reader["Coefficient"].ToString());
-
                             carModels.Add(carModel);
                         }
                     }
@@ -119,7 +117,7 @@ namespace LogisticService.Repositories
         }
 
 
-        public CarModel Find(CarModel carModelName)
+        public async Task<CarModel> FindAsync(CarModel carModelName)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -131,7 +129,7 @@ namespace LogisticService.Repositories
                     command.CommandText = "select * from CarModels where Model=@Model";
                     command.Parameters.Add(new SqlParameter("@Model", carModelName.Model));
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -144,7 +142,6 @@ namespace LogisticService.Repositories
                 }
                 return carModel;
             }
-
 
         }
 

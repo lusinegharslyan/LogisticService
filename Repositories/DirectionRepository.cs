@@ -1,4 +1,4 @@
-﻿using LogisticService.Classes;
+﻿using LogisticService.Models;
 using LogisticService.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace LogisticService.Repositories
     {
         public const string CONNECTCION_STRING = "Data Source=LUSINE1985\\MSSQLSERVER01;Initial Catalog=LogisticServiceDb;Integrated Security=True;Encrypt=False";
 
-        public void Add(Direction direction)
+        public async Task AddAsync(Direction direction)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -27,12 +27,12 @@ namespace LogisticService.Repositories
                     command.Parameters.Add(new SqlParameter("@ToDir", direction.To));
                     command.Parameters.Add(new SqlParameter("@Distance", direction.Distance));
                     command.Parameters.Add(new SqlParameter("@Price", direction.Price));
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -42,12 +42,12 @@ namespace LogisticService.Repositories
                     command.Connection = connection;
                     command.CommandText = "Delete from Directions where Id = @Id";
                     command.Parameters.Add(new SqlParameter("@Id", id));
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public void Update(Direction direction, int id)
+        public async Task UpdateAsync(Direction direction, int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -61,14 +61,13 @@ namespace LogisticService.Repositories
                     command.Parameters.Add(new SqlParameter("@To", direction.To));
                     command.Parameters.Add(new SqlParameter("@Distance", direction.Distance));
                     command.Parameters.Add(new SqlParameter("@Price", direction.Price));
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
 
                 }
-
             }
         }
 
-        public Direction FindById(int id)
+        public async Task<Direction> FindByIdAsync(int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -79,7 +78,7 @@ namespace LogisticService.Repositories
                     command.Connection = connection;
                     command.CommandText = "select * from Directions where Id=@Id";
                     command.Parameters.Add(new SqlParameter("@Id", id));
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -95,7 +94,7 @@ namespace LogisticService.Repositories
                 return direction;
             }
         }
-        public List<Direction> GetAll()
+        public async Task<List<Direction>> GetAllAsync()
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -105,7 +104,7 @@ namespace LogisticService.Repositories
                 {
                     command.Connection = connection;
                     command.CommandText = "select * from Directions";
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -126,7 +125,7 @@ namespace LogisticService.Repositories
         }
 
 
-        public Direction Find(Direction directionPoints)
+        public async Task<Direction> FindAsync(Direction directionPoints)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -138,7 +137,7 @@ namespace LogisticService.Repositories
                     command.CommandText = "select * from Directions where FromDir=@From and ToDir = @To";
                     command.Parameters.Add(new SqlParameter("@From", directionPoints.From));
                     command.Parameters.Add(new SqlParameter("@To", directionPoints.To));
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -153,12 +152,6 @@ namespace LogisticService.Repositories
                 }
                 return direction;
             }
-
-
-
-
         }
-
-
     }
 }

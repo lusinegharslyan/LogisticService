@@ -1,4 +1,4 @@
-﻿using LogisticService.Classes;
+﻿using LogisticService.Models;
 using LogisticService.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace LogisticService.Repositories
     {
         public const string CONNECTCION_STRING = "Data Source=LUSINE1985\\MSSQLSERVER01;Initial Catalog=LogisticServiceDb;Integrated Security=True;Encrypt=False";
 
-        public void Add(CrashedCar crashedCar)
+        public async Task AddAsync(CrashedCar crashedCar)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -25,12 +25,12 @@ namespace LogisticService.Repositories
                     command.Parameters.Add(new SqlParameter("@IsCrashed", crashedCar.IsCrashed));
                     command.Parameters.Add(new SqlParameter("@Coefficient", crashedCar.Coefficient));
 
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -40,12 +40,12 @@ namespace LogisticService.Repositories
                     command.Connection = connection;
                     command.CommandText = "Delete from CrashedCars  where Id = @Id";
                     command.Parameters.Add(new SqlParameter("@Id", id));
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public void Update(CrashedCar crashedCar, int id)
+        public async Task UpdateAsync(CrashedCar crashedCar, int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -58,14 +58,14 @@ namespace LogisticService.Repositories
                     command.Parameters.Add(new SqlParameter("@IsCrashed", crashedCar.IsCrashed));
                     command.Parameters.Add(new SqlParameter("@Coefficient", crashedCar.Coefficient));
 
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
 
                 }
 
             }
         }
 
-        public CrashedCar FindById(int id)
+        public async Task<CrashedCar> FindByIdAsync(int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -76,7 +76,7 @@ namespace LogisticService.Repositories
                     command.Connection = connection;
                     command.CommandText = "select * from CrashedCars  where Id=@Id";
                     command.Parameters.Add(new SqlParameter("@Id", id));
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -90,7 +90,7 @@ namespace LogisticService.Repositories
                 return crashedCar;
             }
         }
-        public List<CrashedCar> GetAll()
+        public async Task<List<CrashedCar>> GetAllAsync()
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -100,7 +100,7 @@ namespace LogisticService.Repositories
                 {
                     command.Connection = connection;
                     command.CommandText = "select * from CrashedCars ";
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -119,7 +119,7 @@ namespace LogisticService.Repositories
         }
 
 
-        public CrashedCar Find(CrashedCar isCrashedCar)
+        public async Task<CrashedCar> FindAsync(CrashedCar isCrashedCar)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTCION_STRING))
             {
@@ -131,7 +131,7 @@ namespace LogisticService.Repositories
                     command.CommandText = "select * from CrashedCars where IsCrashed=@IsCrashed";
                     command.Parameters.Add(new SqlParameter("@IsCrashed", isCrashedCar.IsCrashed));
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -144,8 +144,6 @@ namespace LogisticService.Repositories
                 }
                 return crashedCar;
             }
-
-
         }
     }
 }

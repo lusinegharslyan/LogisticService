@@ -8,11 +8,11 @@ namespace LogisticService.Interfaces
 {
     public interface IRepository<T>
     {
-        void Add(T t);
-        void Delete(int id);
-        void Update(T t, int id);
-        T FindById(int id);
-        List<T> GetAll();
-        T Find(T t);
+        Task AddAsync(T t);
+        Task DeleteAsync(int id);
+        Task UpdateAsync(T t, int id);
+        Task<T> FindByIdAsync(int id);
+        Task<List<T>> GetAllAsync();
+        Task<T> FindAsync(T t);
     }
 }

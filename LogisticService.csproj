@@ -43,15 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AdminMenu.cs" />
-    <Compile Include="Classes\CarModel.cs" />
-    <Compile Include="Classes\CarType.cs" />
-    <Compile Include="Classes\Container.cs" />
-    <Compile Include="Classes\CrashedCar.cs" />
-    <Compile Include="Classes\Direction.cs" />
-    <Compile Include="Classes\Menu.cs" />
-    <Compile Include="Classes\UserMenu.cs" />
-    <Compile Include="Interfaces\ICalculationService.cs" />
+    <Compile Include="CalculationServices\Models\CalculationModel.cs" />
+    <Compile Include="Extentions\ValidationExtentions.cs" />
+    <Compile Include="Menues\AdminMenu.cs" />
+    <Compile Include="Models\CarModel.cs" />
+    <Compile Include="Models\CarType.cs" />
+    <Compile Include="Models\Container.cs" />
+    <Compile Include="Models\CrashedCar.cs" />
+    <Compile Include="Models\Direction.cs" />
+    <Compile Include="Menues\Menu.cs" />
+    <Compile Include="Menues\UserMenu.cs" />
+    <Compile Include="CalculationServices\Abstractions\ICalculationService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,10 +62,11 @@
     <Compile Include="Repositories\ContainerRepository.cs" />
     <Compile Include="Repositories\CrashedCarRepository.cs" />
     <Compile Include="Repositories\DirectionRepository.cs" />
-    <Compile Include="Repositories\ICalculationServiceRepository.cs" />
+    <Compile Include="CalculationServices\Implementations\CalculationServiceRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

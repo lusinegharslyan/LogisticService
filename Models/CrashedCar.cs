@@ -4,8 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogisticService.Classes
+namespace LogisticService.Models
 {
+    public abstract class BaseModel
+    {
+    
+    }
+
     public class CrashedCar
     {
         public CrashedCar()

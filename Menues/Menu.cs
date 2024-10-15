@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogisticService.Classes
+namespace LogisticService.Menues
 {
     public abstract class Menu
     {
-        public abstract void Start();
-            
+        public abstract void Start();    
         
     }
 }
