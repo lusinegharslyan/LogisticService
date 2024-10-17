@@ -9,23 +9,16 @@ namespace LogisticService.Extentions
 {
     public static class ValidationExtentions
     {
-        public static void IntValidation(this string input, out int choice)
+        public static int IntValidation(this string input)
         {
             int result;
 
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                choice = -1;
-                return;
-            }
-
             if (int.TryParse(input, out result))
             {
-                choice = result;
-                return;
+                return result;     
             }
 
-            choice = -1;
+            throw new Exception("Invalid input");
 
         }
 
@@ -35,10 +28,22 @@ namespace LogisticService.Extentions
 
             if (bool.TryParse(input, out result))
             {
-               return result;
+                return result;
             }
 
-            throw new Exception("Invalid choice");
+            throw new Exception("Invalid input");
+        }
+
+        public static float FloatValidation(this string input)
+        {
+            float result;
+
+            if (float.TryParse(input, out result))
+            {
+                return result;
+            }
+
+            throw new Exception("Invalid input");
         }
     }
 }

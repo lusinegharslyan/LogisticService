@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using LogisticService.Models;
 using LogisticService.Menues;
 using LogisticService.Extentions;
+using LogisticService.Helpers;
 
 namespace LogisticService
 {
@@ -21,17 +22,8 @@ namespace LogisticService
                 Menu menu = null;
 
                 Console.WriteLine(" 1- Admin | 2- User | 0 -Exit");
-                Console.Write("Login as: ");
 
-                int login;
-
-                Console.ReadLine().IntValidation(out login);
-
-                if (login == -1)
-                {
-                    Console.WriteLine("Invalid choice");
-                    continue;
-                }
+                int login = InputGeters.IntGeter("Login");
 
                 if (login == 0)
                 {

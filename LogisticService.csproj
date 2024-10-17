@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CalculationServices\Models\CalculationModel.cs" />
     <Compile Include="Extentions\ValidationExtentions.cs" />
+    <Compile Include="Helpers\InputGeters.cs" />
     <Compile Include="Menues\AdminMenu.cs" />
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\CarType.cs" />
